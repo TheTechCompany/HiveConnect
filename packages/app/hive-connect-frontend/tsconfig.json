@@ -4,7 +4,7 @@
     "jsx": "react-jsx",
     "declarationDir": "dist"
   },
-  "files": ["src/hivecrm-app-frontend.tsx"],
+  "files": ["src/hiveconnect-app-frontend.tsx"],
   "include": ["src/**/*"],
   "exclude": ["src/**/*.test*"]
 }
