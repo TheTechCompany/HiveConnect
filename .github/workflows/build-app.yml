@@ -1,4 +1,4 @@
-name: Build Apps (HiveCommand)
+name: Build Apps - Prod (HiveConnect)
 on:
   push:
     branches:
@@ -28,10 +28,10 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with: 
-          context: ./packages/app/hive-crm-backend
-          file: ./packages/app/hive-crm-backend/Dockerfile
+          context: ./packages/app/hive-connect-backend
+          file: ./packages/app/hive-connect-backend/Dockerfile
           push: true
-          tags: thetechcompany/hivecrm-backend:latest
+          tags: thetechcompany/hiveconnect-backend:latest
           build-args: |
             BUILD_ENV=github
   
@@ -52,14 +52,14 @@ jobs:
           node-version: 16.x
       - run: yarn
 
-      - run: lerna bootstrap --scope @hivecrm-app/${{ matrix.apps }} --include-dependencies
+      - run: lerna bootstrap --scope @hiveconnect-app/${{ matrix.apps }} --include-dependencies
 
       - run: export REACT_APP_API="https://api.hexhive.io"
       - run: export REACT_APP_URL="https://go.hexhive.io"
-      - run: export PUBLIC_PATH="https://apps.hexhive.io/hivecrm-${{matrix.apps}}/"
+      - run: export PUBLIC_PATH="https://apps.hexhive.io/hiveconnect-${{matrix.apps}}/"
       
       - name: Build web
-        run: (export REACT_APP_URL="https://go.hexhive.io" PUBLIC_PATH="https://apps.hexhive.io/hivecrm-${{matrix.apps}}/" REACT_APP_API="https://api.hexhive.io" NODE_ENV=production CI=false; lerna run build --scope @hivecrm-app/${{ matrix.apps }} --include-dependencies)
+        run: (export REACT_APP_URL="https://go.hexhive.io" PUBLIC_PATH="https://apps.hexhive.io/hiveconnect-${{matrix.apps}}/" REACT_APP_API="https://api.hexhive.io" NODE_ENV=production CI=false; lerna run build --scope @hiveconnect-app/${{ matrix.apps }} --include-dependencies)
       
       - name: Configure AWS Creds
         uses: aws-actions/configure-aws-credentials@v1
@@ -73,5 +73,5 @@ jobs:
 
       - name: Upload new web-build
         run: |
-          aws s3 sync packages/app/hive-crm-${{ matrix.apps }}/dist/ s3://${{ secrets.APP_BUCKET }}/hivecrm-${{matrix.apps}} --delete
+          aws s3 sync packages/app/hive-connect-${{ matrix.apps }}/dist/ s3://${{ secrets.APP_BUCKET }}/hiveconnect-${{matrix.apps}} --delete
 

@@ -5,7 +5,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
-    orgName: "hivecrm-app",
+    orgName: "hiveconnect-app",
     projectName: "frontend",
     webpackConfigEnv,
     argv,
@@ -34,7 +34,7 @@ module.exports = (webpackConfigEnv, argv) => {
       }),
       new webpack.EnvironmentPlugin({
         ...process.env,
-        PUBLIC_URL: process.env.NODE_ENV == 'production' ? '/dashboard/crm' : '/dashboard/hive-crm'
+        PUBLIC_URL: process.env.NODE_ENV == 'production' ? '/dashboard/connect' : '/dashboard/hive-connect'
       }), 
     ]
   });
