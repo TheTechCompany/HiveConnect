@@ -1,4 +1,11 @@
 import React from "react";
-import { Box } from "grommet";
+import { Box, Text } from "grommet";
+import { GraphGrid, HeaderBox } from "@hexhive/ui";
 
-export const Dashboard = () => <Box> DASHBOARD </Box>;
+export const Dashboard = () => (
+  <HeaderBox header={<Text>DASHBOARD</Text>}>
+    <Text>
+      Graph Gid here - currently buggy, removing the sidebar veiw when aded
+    </Text>
+  </HeaderBox>
+);
