@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Grommet } from "grommet";
 import { Routes, Route, Outlet, BrowserRouter } from "react-router-dom";
 import { SidebarView } from "@hexhive/ui";
+import { BaseStyle } from "@hexhive/styles";
 
 import { Dashboard } from "./views/Dashboard";
 import { People } from "./views/People";
@@ -11,7 +12,7 @@ import { Companies } from "./views/Companies";
 
 export default function Root(props) {
   return (
-    <Grommet style={{ display: "flex" }} full>
+    <Grommet style={{ display: "flex" }} full theme={BaseStyle}>
       <BrowserRouter>
         <SidebarView
           menu={[
