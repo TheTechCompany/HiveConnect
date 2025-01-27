@@ -1979,6 +1979,7 @@ __metadata:
     eslint-config-prettier: ^8.3.0
     eslint-config-ts-react-important-stuff: ^3.0.0
     eslint-plugin-prettier: ^3.4.1
+    graphql: ^16.10.0
     husky: ^7.0.2
     identity-obj-proxy: ^3.0.0
     jest: ^27.0.6
