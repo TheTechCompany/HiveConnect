@@ -1,6 +1,7 @@
 
 export default `
 
+
     type Query {
         contacts : [Contact]
         companies: [Company]
@@ -101,7 +102,7 @@ export default `
 
     type Request {
         id: ID
-        
+
         humanId: String
 
         contact: Contact
