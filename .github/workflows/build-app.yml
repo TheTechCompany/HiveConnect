@@ -54,7 +54,6 @@ jobs:
   
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-  
 
   build_coreapps:
     runs-on: ubuntu-latest
@@ -68,8 +67,6 @@ jobs:
         with:
           node-version: 22.x
       - run: yarn
-
-      - run: lerna bootstrap --scope @hiveconnect-app/${{ matrix.apps }} --include-dependencies
 
       - run: export REACT_APP_API="https://api.hexhive.io"
       - run: export REACT_APP_URL="https://go.hexhive.io"
