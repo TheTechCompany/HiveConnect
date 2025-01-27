@@ -56,8 +56,8 @@ const prisma = new PrismaClient();
 		dev: false,
 		name: 'HiveConnect',
 		slug: 'connect',
-		backend_url: 'http://localhost:9013',
-		entrypoint: 'http://localhost:8513/hiveconnect-app-frontend.js',
+		backend_url: process.env.BACKEND_ENTRYPOINT || 'http://localhost:9013',
+		entrypoint: process.env.ENTRYPOINT || 'http://localhost:8513/hiveconnect-app-frontend.js',
 		resources: [
 			{
 				name: 'Customer',
