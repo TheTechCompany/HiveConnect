@@ -1917,6 +1917,7 @@ __metadata:
     cors: "npm:^2.8.5"
     dotenv: "npm:^16.0.0"
     graphql: "npm:^16.10.0"
+    nanoid: "npm:3"
     prisma: "npm:6.2.1"
     ts-node: "npm:^10.9.2"
   languageName: unknown
@@ -11244,7 +11245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.8":
+"nanoid@npm:3, nanoid@npm:^3.3.8":
   version: 3.3.8
   resolution: "nanoid@npm:3.3.8"
   bin:
