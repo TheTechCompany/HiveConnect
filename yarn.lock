@@ -1941,6 +1941,7 @@ __metadata:
     nanoid: 3
     prisma: 6.2.1
     ts-node: ^10.9.2
+    typescript: ^5.7.3
   languageName: unknown
   linkType: soft
 
