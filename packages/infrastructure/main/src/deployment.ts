@@ -1,7 +1,6 @@
 import {Provider} from '@pulumi/kubernetes'
 import * as k8s from '@pulumi/kubernetes'
 import { all, Config, Output } from '@pulumi/pulumi'
-import * as eks from '@pulumi/eks'
 
 export const Deployment = (provider: Provider, rootServer: string, dbUrl: Output<any>, dbPass: Output<any>) => {
 
@@ -47,7 +46,7 @@ export const Deployment = (provider: Provider, rootServer: string, dbUrl: Output
 
                             { name: 'HEXHIVE_SECRET', value: process.env.HEXHIVE_SECRET },
 
-                            { name: "DATABASE_URL", value: all([dbUrl, dbPass]).apply(([url, pass]) => `postgresql://postgres:${pass}@${url}/hiveconnect?connect_timeout=100`) },
+                            { name: "DATABASE_URL", value: all([dbUrl, dbPass]).apply(([url, pass]) => `postgresql://postgres:${pass}@${url}.db-${suffix}.svc.cluster.local:5432/hiveconnect?connect_timeout=100`) },
                             // { name: 'UI_URL',  value: `https://${domainName}/dashboard` },
                             // { name: 'BASE_URL',  value: `https://${domainName}`},
                             // { name: "NEO4J_URI", value: process.env.NEO4J_URI /*neo4Url.apply((url) => `neo4j://${url}.default.svc.cluster.local`)*/ },

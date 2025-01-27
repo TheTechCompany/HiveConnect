@@ -30,7 +30,7 @@ const main = (async () => {
 
     const rootServer = gatewayRef.getOutput('internalGatewayUrl');
     
-    const dbUrl = dbRef.getOutput('postgres_url');
+    const dbUrl = dbRef.getOutput('postgres_name');
     const dbPass = dbRef.getOutput('postgres_pass');
 
     // const exportLambda = lambdaRef.getOutput('exportFunction');
