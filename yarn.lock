@@ -2422,6 +2422,7 @@ __metadata:
     "@types/cors": ^2.8.17
     cors: ^2.8.5
     dotenv: ^16.0.0
+    express: ^4.21.2
     graphql: ^16.10.0
     nanoid: 3
     prisma: 6.2.1
@@ -8637,7 +8638,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^4.17.3":
+"express@npm:^4.17.3, express@npm:^4.21.2":
   version: 4.21.2
   resolution: "express@npm:4.21.2"
   dependencies:
