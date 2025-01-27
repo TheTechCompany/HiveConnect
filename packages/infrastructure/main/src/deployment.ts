@@ -9,8 +9,8 @@ export const Deployment = (provider: Provider, rootServer: string, dbUrl: Output
     const suffix = config.require('suffix');
     const imageTag = process.env.IMAGE_TAG 
 
-    const appName = `hive-command-${suffix}`
-
+    const appName = `hiveconnect-${suffix}`
+    
     const appLabels = { appClass: appName };
 
     const deployment = new k8s.apps.v1.Deployment(`${appName}-dep`, {
