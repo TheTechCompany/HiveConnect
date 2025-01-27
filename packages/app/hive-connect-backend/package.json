@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "installConfig": {
+    "hoistingLimits": "dependencies"
+  },
   "scripts": {
     "start": "ts-node src/index.ts",
     "start:prod": "node dist/index.js",
