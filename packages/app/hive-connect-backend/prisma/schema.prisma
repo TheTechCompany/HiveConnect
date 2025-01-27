@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Contact {
+  id String @id
+  
+  name String
+  email String? @unique
+
+  address String?
+
+  firstContact DateTime @default(now())
+
+  requests Request[]
+  orders Order[]
+
+  companyHistory CompanyRelationship[] @relation(name: "hasContactRelationship")
+
+  organisation String
+}
+
+model Company {
+  id String @id
+  name String
+
+  relationships CompanyRelationship[] @relation(name: "hasCompanyRelationship")
+
+  organisation String
+}
+
+model CompanyRelationship {
+  id String @id
+
+  company Company @relation(name: "hasCompanyRelationship", fields: [companyId], references: [id])
+  companyId String
+
+  contact Contact @relation(name: "hasContactRelationship", fields: [contactId], references: [id])
+  contactId String
+
+  start DateTime?
+  end DateTime?
+}
+model Request {
+  id String @id
+
+  humanId String
+
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactId String
+
+  createdOn DateTime @default(now())
+
+  source String?
+
+  data Json?
+
+  order Order[] @relation(name: "createdOrder")
+
+  organisation String
+}
+
+model Order {
+  id String @id
+  
+  humanId String
+
+  status String
+
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactId String
+
+  createdOn DateTime @default(now())
+
+  source String?
+
+  data Json?
+
+  request Request? @relation(name: "createdOrder", fields: [requestId], references: [id])
+  requestId String?
+
+  organisation String
+}

@@ -1,7 +1,12 @@
 {
   "name": "root",
   "private": true,
+  "workspaces": [
+    "packages/**/*"
+  ],
   "devDependencies": {
-    "lerna": "^4.0.0"
-  }
+    "lerna": "^4.0.0",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "yarn@4.6.0"
 }

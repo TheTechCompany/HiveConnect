@@ -4,14 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
+    "start:prod": "node dist/index.js",
+    "build": "tsc -b",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hexhive/graphql-server": "^0.0.6-alpha.48",
+    "@hexhive/graphql-server": "^1.0.2-beta.94",
+    "@prisma/client": "6.2.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-    "neo4j-driver": "^4.4.4"
+    "graphql": "^16.10.0",
+    "nanoid": "3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "prisma": "6.2.1",
+    "ts-node": "^10.9.2"
   }
 }

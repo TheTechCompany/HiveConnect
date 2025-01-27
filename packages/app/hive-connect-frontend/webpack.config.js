@@ -16,7 +16,18 @@ module.exports = (webpackConfigEnv, argv) => {
     resolve: {
       plugins: [
         new TsconfigPathsPlugin(),
-      ]
+      ],
+      fallback: {
+        // https: false,
+        // http: false,
+        // "module": false,
+        // "pnpapi": false,
+        'process/browser': require.resolve('process/browser'),
+        "path": require.resolve('path-browserify'),
+        "buffer": require.resolve('buffer/'),
+        "stream": require.resolve('stream'),
+        // "crypto": require.resolve('crypto-browserify')
+      }
     },
     module: {
       rules: [
@@ -34,7 +45,7 @@ module.exports = (webpackConfigEnv, argv) => {
       }),
       new webpack.EnvironmentPlugin({
         ...process.env,
-        PUBLIC_URL: process.env.NODE_ENV == 'production' ? '/dashboard/connect' : '/dashboard/hive-connect'
+        PUBLIC_URL: process.env.NODE_ENV == 'production' ? '/dashboard/connect' : '/dashboard/connect'
       }), 
     ]
   });

@@ -5,22 +5,21 @@ import { HiveGraph } from '@hexhive/graphql-server'
 
 import cors from 'cors';
 import express from 'express';
-import neo4j from "neo4j-driver"
-import { Neo4jGraphQL } from "@neo4j/graphql"
-import { graphqlHTTP } from "express-graphql"
 import typeDefs from './schema'
 import resolvers from './resolvers';
+import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 
 (async () => {
 
 
 	// await connect_data()
 	
-	const driver = neo4j.driver(
-		process.env.NEO4J_URI || "localhost",
-		neo4j.auth.basic(process.env.NEO4J_USER || "neo4j", process.env.NEO4J_PASSWORD || "test")
-	)
+	// const driver = neo4j.driver(
+	// 	process.env.NEO4J_URI || "localhost",
+	// 	neo4j.auth.basic(process.env.NEO4J_USER || "neo4j", process.env.NEO4J_PASSWORD || "test")
+	// )
 
 	// const pool = new Pool({
 	// 	host: process.env.TIMESERIES_HOST || 'localhost',
@@ -49,17 +48,34 @@ import resolvers from './resolvers';
 
 	//TODO figure out the race condition to get the OGM with merged models from hive-graph
 
-	const resolved = await resolvers(driver)
+	const resolved = await resolvers(prisma)
 
 	// const neoSchema : Neo4jGraphQL = new Neo4jGraphQL({ typeDefs, resolvers: resolved, driver })
 
 	const graphServer = new HiveGraph({
 		dev: false,
+		name: 'HiveConnect',
+		slug: 'connect',
+		backend_url: 'http://localhost:9013',
+		entrypoint: 'http://localhost:8513/hiveconnect-app-frontend.js',
+		resources: [
+			{
+				name: 'Customer',
+				actions: ['create', 'read', 'update', 'delete']
+			},
+			{
+				name: 'Order',
+				actions: ['create', 'read', 'update', 'delete']
+			},
+			{
+				name: 'Request',
+				actions: ['create', 'read', 'update', 'delete']
+			}
+		],
 		rootServer: process.env.ROOT_SERVER || 'http://localhost:7000',
 		schema: {
 			typeDefs: typeDefs,
 			resolvers: resolved,
-			driver
 		}
 	})
 
