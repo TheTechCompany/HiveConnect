@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import { Add } from '@mui/icons-material';
 import { ContactModal } from "./modal";
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 export const ContactList = () => {
 
+    const navigate = useNavigate();
+    
     const [ modalOpen, openModal ] = useState(false);
     const [ selected, setSelected ] = useState<any>(null);
 
@@ -85,8 +88,9 @@ export const ContactList = () => {
                     {contacts?.map((contact: any) => (
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => {
-                                setSelected(contact)
-                                openModal(true)
+                                // setSelected(contact)
+                                // openModal(true)
+                                navigate(contact.id)
                             }}>
                             {contact?.name}
                             </ListItemButton>

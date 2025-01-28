@@ -11,6 +11,7 @@ export default (prisma : PrismaClient) => ({
                     id: nanoid(),
                     name: args.input.name,
                     address: args.input.address,
+                    phone: args.input.phone,
                     email: args.input.email,
                     organisation: context?.jwt?.organisation
                 }
@@ -25,6 +26,7 @@ export default (prisma : PrismaClient) => ({
                 data: {
                     name: args.input.name,
                     address: args.input.address,
+                    phone: args.input.phone,
                     email: args.input.email,
                 }
             })
@@ -44,7 +46,12 @@ export default (prisma : PrismaClient) => ({
             if(args.input.contact?.id){
                 contactInfo = {connect: {id: args.input.contact?.id}}
             }else{
-                contactInfo = {create: {data: {id: nanoid(), ...args.input.contact}}}
+                const { id } = await prisma.contact.findFirst({where: {email: args.input.email}}) || {};
+                if(!id){
+                    contactInfo = {create: {id: nanoid(), ...args.input.contact, organisation: context?.jwt?.organisation}}
+                }else{
+                    contactInfo = {connect: {id: id}}
+                }
             }
 
             const count = await prisma.request.count({
@@ -58,7 +65,7 @@ export default (prisma : PrismaClient) => ({
                     id: nanoid(),
                     humanId: `R-${((count || 0) + 1)}`,
                     data: args.input.data,
-                    source: args.input.source,
+                    source: args.input.source || 'External',
                     contact: contactInfo,
                     organisation: context?.jwt?.organisation
                 }
@@ -91,7 +98,12 @@ export default (prisma : PrismaClient) => ({
             if(args.input.contact?.id){
                 contactInfo = {connect: {id: args.input.contact?.id}}
             }else{
-                contactInfo = {create: {data: {id: nanoid(), ...args.input.contact}}}
+                const { id } = await prisma.contact.findFirst({where: {email: args.input.email}}) || {};
+                if(!id){
+                    contactInfo = {create: {id: nanoid(), ...args.input.contact, organisation: context?.jwt?.organisation}}
+                }else{
+                    contactInfo = {connect: {id: id}}
+                }
             }
 
             const count = await prisma.order.count({
@@ -163,22 +175,66 @@ export default (prisma : PrismaClient) => ({
     },
     Query: {
         contacts: async (root: any, args: any, context: any) => {
+            let idQuery : any = {};
+            if(args.ids){
+                idQuery = {id: {in: args.ids}}
+            }
+
+            let timeQuery : any = {};
+
+            if(args.start){
+                timeQuery.firstContact = {...timeQuery.firstContact, gt: args.start}
+            }
+
+            if(args.end){
+                timeQuery.firstContact = {...timeQuery.firstContact, lt: args.end}
+            }
+
             return await prisma.contact.findMany({
                 where: {
+                    ...idQuery,
+                    ...timeQuery,
                     organisation: context?.jwt?.organisation
+                },
+                include: {
+                    requests: true,
+                    orders: true
                 }
             })
         },
         companies: async (root: any, args: any, context: any) => {
+            let idQuery : any = {};
+            if(args.ids){
+                idQuery = {id: {in: args.ids}}
+            }
+
             return await prisma.company.findMany({
                 where: {
+                    ...idQuery,
                     organisation: context?.jwt?.organisation
                 }
             })
         },
         orders: async (root: any, args: any, context: any) => {
+            let idQuery : any = {};
+            if(args.ids){
+                idQuery = {id: {in: args.ids}}
+            }
+
+            let timeQuery : any = {};
+
+            if(args.start){
+                timeQuery.createdOn = {...timeQuery.createdOn, gt: args.start}
+            }
+
+            if(args.end){
+                timeQuery.createdOn = {...timeQuery.createdOn, lt: args.end}
+            }
+
             return await prisma.order.findMany({
                 where: {
+                    ...idQuery,
+                    ...timeQuery,
                     organisation: context?.jwt?.organisation
                 },
                 include: {
@@ -187,8 +243,26 @@ export default (prisma : PrismaClient) => ({
             })
         },
         requests: async (root: any, args: any, context: any) => {
+            let idQuery : any = {};
+            if(args.ids){
+                idQuery = {id: {in: args.ids}}
+            }
+
+            let timeQuery : any = {};
+
+            if(args.start){
+                timeQuery.createdOn = {...timeQuery.createdOn, gt: args.start}
+            }
+
+            if(args.end){
+                timeQuery.createdOn = {...timeQuery.createdOn, lt: args.end}
+            }
+
+
             return await prisma.request.findMany({
                 where: {
+                    ...idQuery,
+                    ...timeQuery,
                     organisation: context?.jwt?.organisation
                 },
                 include: {

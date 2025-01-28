@@ -3,6 +3,7 @@ import { Add } from "@mui/icons-material";
 import { Box, Divider, IconButton, List, ListItem, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { OrderModal } from "./modal";
+import moment from "moment";
 
 export const OrderList = () => {
 
@@ -115,7 +116,7 @@ export const OrderList = () => {
                             {order?.contact?.address}
                         </TableCell>
                         <TableCell>
-                            {order?.createdOn}
+                            {moment(order?.createdOn).format('DD/MM/YYYY - hh:mma')}
                         </TableCell>
                         <TableCell>
                             {order?.source}

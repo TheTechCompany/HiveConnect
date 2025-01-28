@@ -2470,6 +2470,7 @@ __metadata:
     identity-obj-proxy: ^3.0.0
     jest: ^27.0.6
     jest-cli: ^27.0.6
+    moment: ^2.30.1
     path-browserify: ^1.0.1
     prettier: ^2.3.2
     pretty-quick: ^3.1.1
@@ -12470,6 +12471,13 @@ __metadata:
   version: 1.0.3
   resolution: "module-details-from-path@npm:1.0.3"
   checksum: 378a8a26013889aa3086bfb0776b7860c5bb957336253e1ba5d779c2f239a218930b145ca76e52c1dd7c8079d52b2af64b8eec30822f81ffdb0dfa27d6fe6f33
+  languageName: node
+  linkType: hard
+
+"moment@npm:^2.30.1":
+  version: 2.30.1
+  resolution: "moment@npm:2.30.1"
+  checksum: 859236bab1e88c3e5802afcf797fc801acdbd0ee509d34ea3df6eea21eb6bcc2abd4ae4e4e64aa7c986aa6cba563c6e62806218e6412a765010712e5fa121ba6
   languageName: node
   linkType: hard
 

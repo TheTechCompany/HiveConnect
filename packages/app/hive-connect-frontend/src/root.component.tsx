@@ -8,6 +8,8 @@ import { ThemeProvider } from "@mui/material";
 import { HexHiveTheme } from '@hexhive/styles';
 import { HomeView } from "./views/home";
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
+import { RequestView } from "./views/request-view";
+import { ContactView } from "./views/contact-view";
 
 export default function Root(props: any) {
 
@@ -33,8 +35,14 @@ export default function Root(props: any) {
         <div style={{  flex: 1, padding: '8px', display: 'flex' }}>
           <Routes>
             <Route path="" element={<HomeView />} />
-            <Route path="contacts" element={<ContactList />} />
-            <Route path="requests" element={<RequestList />} />
+            <Route path="contacts" element={<Outlet />}>
+              <Route path="" element={<ContactList />} />
+              <Route path=":id" element={<ContactView />} />
+            </Route>
+            <Route path="requests" element={<Outlet />}>
+              <Route path="" element={<RequestList />} />
+              <Route path=":id" element={<RequestView />} />
+            </Route>
             <Route path="orders" element={<OrderList />} />
           </Routes>
         </div>

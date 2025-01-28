@@ -3,10 +3,11 @@ export default `
 
 
     type Query {
-        contacts : [Contact]
-        companies: [Company]
-        orders: [Order]
-        requests: [Request]
+    
+        contacts(ids: [ID], start: DateTime, end: DateTime): [Contact] @merge(keyField: "id", keyArg: "ids")
+        companies(ids: [ID]): [Company] @merge(keyField: "id", keyArg: "ids")
+        orders(ids: [ID], start: DateTime, end: DateTime): [Order] @merge(keyField: "id", keyArg: "ids")
+        requests(ids: [ID], start: DateTime, end: DateTime): [Request] @merge(keyField: "id", keyArg: "ids")
     }
 
     type Mutation {
@@ -31,6 +32,7 @@ export default `
         id: ID
         name: String
         email: String
+        phone: String
         address: String
     }
 
@@ -38,10 +40,13 @@ export default `
         id : ID
         name: String
         email: String
+        phone: String
         address: String
 
         orders: [Order]
-        request: [Request]
+        requests: [Request]
+
+        firstContact: DateTime
 
         companyHistory: [CompanyRelationship]
     }
