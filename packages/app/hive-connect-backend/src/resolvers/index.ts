@@ -46,7 +46,9 @@ export default (prisma : PrismaClient) => ({
             if(args.input.contact?.id){
                 contactInfo = {connect: {id: args.input.contact?.id}}
             }else{
-                const { id } = await prisma.contact.findFirst({where: {email: args.input.email}}) || {};
+                if(!args.input.contact?.email) throw new Error("E-mail must be provided");
+
+                const { id } = await prisma.contact.findFirst({where: {email: args.input.contact?.email}}) || {};
                 if(!id){
                     contactInfo = {create: {id: nanoid(), ...args.input.contact, organisation: context?.jwt?.organisation}}
                 }else{
@@ -98,7 +100,8 @@ export default (prisma : PrismaClient) => ({
             if(args.input.contact?.id){
                 contactInfo = {connect: {id: args.input.contact?.id}}
             }else{
-                const { id } = await prisma.contact.findFirst({where: {email: args.input.email}}) || {};
+                if(!args.input.contact?.email) throw new Error("E-mail must be provided");
+                const { id } = await prisma.contact.findFirst({where: {email: args.input.contact?.email}}) || {};
                 if(!id){
                     contactInfo = {create: {id: nanoid(), ...args.input.contact, organisation: context?.jwt?.organisation}}
                 }else{
