@@ -98,20 +98,26 @@ export const RequestList = () => {
             <Divider />
             <Box sx={{flex: 1, minHeight: 0, overflow: 'scroll'}}>
                 <Table stickyHeader>
-                    <TableHead sx={{
-                        background: 'secondary.main'
-                    }}>
+                    <TableHead>
                         <TableRow>
-                            <TableCell>
+                            <TableCell sx={{
+                                background: 'secondary.main'
+                            }}>
                                 ID
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{
+                                background: 'secondary.main'
+                            }}>
                                 Contact
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{
+                                background: 'secondary.main'
+                            }}>
                                 Source
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{
+                                background: 'secondary.main'
+                            }}>
                                 Created On
                             </TableCell>
                         </TableRow>

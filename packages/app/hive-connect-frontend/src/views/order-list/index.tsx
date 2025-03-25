@@ -79,26 +79,36 @@ export const OrderList = () => {
             <Divider />
             <Box sx={{flex: 1, overflow: 'scroll'}}>
             <Table stickyHeader>
-                <TableHead sx={{
-                    background: 'secondary.main'
-                }}>
+                <TableHead>
                     <TableRow>
-                        <TableCell>
+                        <TableCell sx={{
+                            background: 'secondary.main'
+                        }}>
                             ID
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{
+                            background: 'secondary.main'
+                        }}>
                             Status
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{
+                            background: 'secondary.main'
+                        }}>
                             Contact
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{
+                            background: 'secondary.main'
+                        }}>
                             Address
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{
+                            background: 'secondary.main'
+                        }}>
                             Created On
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{
+                            background: 'secondary.main'
+                        }}>
                             Source
                         </TableCell>
                     </TableRow>
