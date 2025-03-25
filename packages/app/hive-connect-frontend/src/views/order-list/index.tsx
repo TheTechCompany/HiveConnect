@@ -79,7 +79,9 @@ export const OrderList = () => {
             <Divider />
             <Box sx={{flex: 1, overflow: 'scroll'}}>
             <Table stickyHeader>
-                <TableHead>
+                <TableHead sx={{
+                    background: 'secondary.main'
+                }}>
                     <TableRow>
                         <TableCell>
                             ID

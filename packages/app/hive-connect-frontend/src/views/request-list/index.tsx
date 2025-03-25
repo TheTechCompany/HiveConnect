@@ -98,7 +98,9 @@ export const RequestList = () => {
             <Divider />
             <Box sx={{flex: 1, minHeight: 0, overflow: 'scroll'}}>
                 <Table stickyHeader>
-                    <TableHead>
+                    <TableHead sx={{
+                        background: 'secondary.main'
+                    }}>
                         <TableRow>
                             <TableCell>
                                 ID
