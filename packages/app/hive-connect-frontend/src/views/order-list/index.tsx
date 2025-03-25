@@ -54,7 +54,7 @@ export const OrderList = () => {
     const orders = data?.orders || [];
 
     return (
-        <Paper sx={{ flex: 1 }}>
+        <Paper sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <OrderModal
                 open={modalOpen}
                 contacts={contacts}
@@ -77,7 +77,8 @@ export const OrderList = () => {
                 </IconButton>
             </Box>
             <Divider />
-            <Table>
+            <Box sx={{flex: 1, overflow: 'scroll'}}>
+            <Table stickyHeader>
                 <TableHead>
                     <TableRow>
                         <TableCell>
@@ -126,6 +127,7 @@ export const OrderList = () => {
                 </TableBody>
             
             </Table>
+            </Box>
         </Paper>
     )
 }

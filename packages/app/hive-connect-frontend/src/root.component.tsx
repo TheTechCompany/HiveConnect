@@ -28,11 +28,11 @@ export default function Root(props: any) {
   return <ApolloProvider client={client}>
    <ThemeProvider theme={HexHiveTheme}>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <div style={{background: '#dfdfdf', display: 'flex', flex: 1 }}>
+      <div style={{minHeight: 0, background: '#dfdfdf', display: 'flex', flex: 1 }}>
         <div style={{ display: 'flex', minWidth: '200px' }}>
           <Sidebar />
         </div>
-        <div style={{  flex: 1, padding: '8px', display: 'flex' }}>
+        <div style={{  flex: 1, minHeight: 0, padding: '8px', display: 'flex' }}>
           <Routes>
             <Route path="" element={<HomeView />} />
             <Route path="contacts" element={<Outlet />}>

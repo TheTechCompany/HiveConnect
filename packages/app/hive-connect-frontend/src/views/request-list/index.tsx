@@ -60,7 +60,7 @@ export const RequestList = () => {
     const contacts = data?.contacts || [];
 
     return (
-        <Paper sx={{flex: 1}}>
+        <Paper sx={{minHeight: 0, flex: 1, display: 'flex', flexDirection : 'column'}}>
             <RequestModal
                 open={modalOpen}
                 contacts={contacts}
@@ -96,34 +96,36 @@ export const RequestList = () => {
                 </IconButton>
             </Box>
             <Divider />
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            ID
-                        </TableCell>
-                        <TableCell>
-                            Contact
-                        </TableCell>
-                        <TableCell>
-                            Source
-                        </TableCell>
-                        <TableCell>
-                            Created On
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {requests?.map((request: any) => (
-                        <TableRow onClick={() => navigate(request.id)}>
-                            <TableCell>{request?.humanId}</TableCell>
-                            <TableCell>{request?.contact?.name}</TableCell>
-                            <TableCell>{request?.source}</TableCell>
-                            <TableCell>{moment(request?.createdOn).format('DD/MM/YYYY - hh:mma')}</TableCell>
+            <Box sx={{flex: 1, minHeight: 0, overflow: 'scroll'}}>
+                <Table stickyHeader>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>
+                                ID
+                            </TableCell>
+                            <TableCell>
+                                Contact
+                            </TableCell>
+                            <TableCell>
+                                Source
+                            </TableCell>
+                            <TableCell>
+                                Created On
+                            </TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHead>
+                    <TableBody>
+                        {requests?.map((request: any) => (
+                            <TableRow onClick={() => navigate(request.id)}>
+                                <TableCell>{request?.humanId}</TableCell>
+                                <TableCell>{request?.contact?.name}</TableCell>
+                                <TableCell>{request?.source}</TableCell>
+                                <TableCell>{moment(request?.createdOn).format('DD/MM/YYYY - hh:mma')}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Box>
         </Paper>
     )
 }
