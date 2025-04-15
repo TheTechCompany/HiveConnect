@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.787.0",
     "@hexhive/graphql-server": "^1.0.2-beta.94",
     "@prisma/client": "6.2.1",
     "cors": "^2.8.5",

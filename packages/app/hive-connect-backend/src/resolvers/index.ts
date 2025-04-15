@@ -1,12 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import e from "cors";
 import { nanoid } from 'nanoid'
+import { notify } from "../notify";
 
 export default (prisma : PrismaClient) => ({
 
     Mutation: {
         createContact: async (root: any, args: any, context: any) => {
-            return await prisma.contact.create({
+            const newContact = await prisma.contact.create({
                 data: {
                     id: nanoid(),
                     name: args.input.name,
@@ -16,6 +17,9 @@ export default (prisma : PrismaClient) => ({
                     organisation: context?.jwt?.organisation
                 }
             })
+            notify('Contact', newContact, prisma, context?.jwt?.organisation);
+
+            return newContact
         },
         updateContact: async (root: any, args: any, context: any) => {
             return await prisma.contact.update({
@@ -61,8 +65,9 @@ export default (prisma : PrismaClient) => ({
                     organisation: context?.jwt?.organisation
                 }
             })
+
             
-            return await prisma.request.create({
+            const newRequest = await prisma.request.create({
                 data: {
                     id: nanoid(),
                     humanId: `R-${((count || 0) + 1)}`,
@@ -72,6 +77,11 @@ export default (prisma : PrismaClient) => ({
                     organisation: context?.jwt?.organisation
                 }
             })
+
+            notify('Request', newRequest, prisma, context?.jwt?.organisation);
+        
+            return newRequest
+
         },
         updateRequest: async (root: any, args: any, context: any) => {
             return await prisma.request.update({
@@ -115,7 +125,7 @@ export default (prisma : PrismaClient) => ({
                 }
             })
 
-            return await prisma.order.create({
+            const newOrder = await prisma.order.create({
                 data: {
                     id: nanoid(),  
                     humanId: `O-${((count || 0) + 1)}`,
@@ -126,6 +136,9 @@ export default (prisma : PrismaClient) => ({
                     organisation: context?.jwt?.organisation
                 }
             })
+
+            notify('Order', newOrder, prisma, context?.jwt?.organisation);
+            return newOrder
         },
         updateOrder: async (root: any, args: any, context: any) => {
             return await prisma.order.update({
@@ -148,13 +161,16 @@ export default (prisma : PrismaClient) => ({
             })
         },
         createCompany: async (root: any, args: any, context: any) => {
-            return await prisma.company.create({
+            const newCompany = await prisma.company.create({
                 data: {
                     id: nanoid(),
                     name: args.input.name,
                     organisation: context?.jwt?.organisation
                 }
             })
+            notify('Company', newCompany, prisma, context?.jwt?.organisation);
+
+            return newCompany
         },
         updateCompany: async (root: any, args: any, context: any) => {
             return await prisma.company.update({
@@ -174,9 +190,64 @@ export default (prisma : PrismaClient) => ({
                     organisation: context?.jwt?.organisation
                 }
             })
+        },
+        createNotificationPathway: async (root: any, args: any, context: any) => {
+            return await prisma.notificationPathway.upsert({
+                where: {
+                    user_organisation: {
+                        user: args.user,
+                        organisation: context?.jwt?.organisation
+                    }
+                },
+                create: {
+                    id: nanoid(),
+                    user: args.user,
+                    email: args.email,
+                    organisation: context?.jwt?.organisation,
+                    notifyOn: args.notifyOn
+                },
+                update: {
+                    notifyOn: args.notifyOn,
+                    email: args.email
+                }
+            })
+        },
+        updateNotificationPathway: async (root: any, args: any, context: any) => {
+            return await prisma.notificationPathway.update({
+                where: {
+                    user_organisation: {
+                        user: args.user,
+                        organisation: context?.jwt?.organisation
+                    }
+                },
+                data: {
+                    notifyOn: args.notifyOn,
+                    email: args.email,
+
+                }
+            })
+        },
+        deleteNotificationPathway: async (root: any, args: any, context: any) => {
+            return await prisma.notificationPathway.delete({
+                where: {
+                    user_organisation: {
+                        user: args.user,
+                        organisation: context?.jwt?.organisation
+                    }
+                }
+            })
         }
     },
     Query: {
+        notificationPathways: async (root: any, args: any, context: any) => {
+            const notificationPathways = await prisma.notificationPathway.findMany({
+                where: {
+                    organisation: context.jwt?.organisation
+                }
+            });
+
+            return notificationPathways.map((x) => ({...x, user: {id: x.user}}));
+        },  
         contacts: async (root: any, args: any, context: any) => {
             let idQuery : any = {};
             if(args.ids){

@@ -55,6 +55,7 @@ model CompanyRelationship {
   start DateTime?
   end DateTime?
 }
+
 model Request {
   id String @id
 
@@ -94,4 +95,19 @@ model Order {
   requestId String?
 
   organisation String
+}
+
+model NotificationPathway {
+  id String @id
+
+  notifyOn String[]
+
+  user String
+  email String
+
+  organisation String
+
+  createdAt DateTime @default(now())
+
+  @@unique([user, organisation])
 }

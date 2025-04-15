@@ -8,6 +8,8 @@ export default `
         companies(ids: [ID]): [Company] @merge(keyField: "id", keyArg: "ids")
         orders(ids: [ID], start: DateTime, end: DateTime): [Order] @merge(keyField: "id", keyArg: "ids")
         requests(ids: [ID], start: DateTime, end: DateTime): [Request] @merge(keyField: "id", keyArg: "ids")
+
+        notificationPathways: [NotificationPathway]
     }
 
     type Mutation {
@@ -26,6 +28,10 @@ export default `
         createOrder(input: OrderInput): Order
         updateOrder(id: ID, input: OrderInput): Order
         deleteOrder(id: ID): Order
+
+        createNotificationPathway(user: String, email: String, notifyOn: [String]): NotificationPathway
+        updateNotificationPathway(user: String, email: String, notifyOn: [String]): NotificationPathway
+        deleteNotificationPathway(user: String): NotificationPathway
     }
 
     input ContactInput {
@@ -116,6 +122,18 @@ export default `
 
         data: JSON
         
+        createdOn: DateTime
+    }
+
+    type NotificationPathway {
+        id: ID
+        
+        user: HiveUser
+        
+        organisation: HiveOrganisation
+
+        notifyOn: [String]
+
         createdOn: DateTime
     }
 `

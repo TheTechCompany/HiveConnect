@@ -8,6 +8,7 @@ import express from 'express';
 import typeDefs from './schema'
 import resolvers from './resolvers';
 import { PrismaClient } from '@prisma/client';
+import { SESClient } from '@aws-sdk/client-ses';
 
 const prisma = new PrismaClient();
 

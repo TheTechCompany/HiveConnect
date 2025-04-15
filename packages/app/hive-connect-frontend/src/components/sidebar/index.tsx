@@ -20,6 +20,10 @@ export const Sidebar = () => {
      {
         label: "Orders",
         path: 'orders'
+    },
+    {
+        label: "Notifications",
+        path: 'notifications'
     }];
 
     const navigate = useNavigate();

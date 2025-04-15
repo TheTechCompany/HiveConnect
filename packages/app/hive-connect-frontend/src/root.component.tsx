@@ -10,6 +10,7 @@ import { HomeView } from "./views/home";
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
 import { RequestView } from "./views/request-view";
 import { ContactView } from "./views/contact-view";
+import { NotificationList } from "./views/notification-list";
 
 export default function Root(props: any) {
 
@@ -44,6 +45,7 @@ export default function Root(props: any) {
               <Route path=":id" element={<RequestView />} />
             </Route>
             <Route path="orders" element={<OrderList />} />
+            <Route path="notifications" element={<NotificationList />} />
           </Routes>
         </div>
       </div>
