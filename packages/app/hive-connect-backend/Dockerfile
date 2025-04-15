@@ -49,6 +49,7 @@ WORKDIR /app
 
 COPY --from=build /app/packages/app/hive-connect-backend/package.json .
 COPY --from=build /app/packages/app/hive-connect-backend/dist/ .
+COPY --from=build /app/packages/app/hive-connect-backend/prisma/ .
 COPY --from=build /app/_node_modules/ node_modules/
 
 CMD ["yarn", "run", "start:prod"]
