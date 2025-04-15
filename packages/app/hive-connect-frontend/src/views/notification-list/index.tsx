@@ -17,6 +17,7 @@ export const NotificationList = () => {
                 user {
                     id
                     name
+                    email
                 }
                 notifyOn
                 createdOn
@@ -25,6 +26,7 @@ export const NotificationList = () => {
             users {
                 id
                 name
+                email
             }
         }    
     `)
