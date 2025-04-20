@@ -32,8 +32,8 @@ export const NotificationList = () => {
     `)
 
     const [ createPathway ] = useMutation(gql`
-        mutation CreatePathway ($user: String, $notifyOn: [String]) {
-            createNotificationPathway(user: $user, notifyOn: $notifyOn){
+        mutation CreatePathway ($user: String, $email: String, $notifyOn: [String]) {
+            createNotificationPathway(user: $user, email: $email, notifyOn: $notifyOn){
                 id
             }
         }    
@@ -43,8 +43,8 @@ export const NotificationList = () => {
 
 
     const [ updatePathway ] = useMutation(gql`
-        mutation UpdatePathway ($user: String, $notifyOn: [String]) {
-            updateNotificationPathway(user: $user, notifyOn: $notifyOn){
+        mutation UpdatePathway ($user: String, $email: String, $notifyOn: [String]) {
+            updateNotificationPathway(user: $user, email: $email, notifyOn: $notifyOn){
                 id
             }
         }    
