@@ -4,6 +4,7 @@ New order received on HexHive
 
 Order data
 ---
-${JSON.stringify(order, null, 2)}
-
+${Object.keys(order).filter((a) => a != 'id' && a != 'organisation').map((key) => {
+    return `${key}: ${order[key]}`
+}).join('\n')}
 `

@@ -4,6 +4,7 @@ New company received on HexHive
 
 Company data
 ---
-${JSON.stringify(company, null, 2)}
-
+${Object.keys(company).filter((a) => a != 'id' && a != 'organisation').map((key) => {
+    return `${key}: ${company[key]}`
+}).join('\n')}
 `

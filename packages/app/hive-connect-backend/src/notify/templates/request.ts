@@ -4,6 +4,7 @@ New request received on HexHive
 
 Request data
 ---
-${JSON.stringify(request, null, 2)}
-
+${Object.keys(request).filter((a) => a != 'id' && a != 'organisation').map((key) => {
+    return `${key}: ${request[key]}`
+}).join('\n')}
 `

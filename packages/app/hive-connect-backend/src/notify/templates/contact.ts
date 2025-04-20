@@ -4,6 +4,7 @@ New contact received on HexHive
 
 Contact data
 ---
-${JSON.stringify(contact, null, 2)}
-
+${Object.keys(contact).filter((a) => a != 'id' && a != 'organisation').map((key) => {
+    return `${key}: ${contact[key]}`
+}).join('\n')}
 `
