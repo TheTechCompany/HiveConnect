@@ -26,7 +26,9 @@ export const notify = async (key: string, item: any, prisma: PrismaClient, organ
             },
             Message: {
                 Body: {
-                    Text: message
+                    Text: {
+                        Data: message
+                    }
                 },
                 Subject: {
                     Data: `New ${key} in HexHive`,
