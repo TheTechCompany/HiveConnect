@@ -17,7 +17,7 @@ export const notify = async (key: string, item: any, prisma: PrismaClient, organ
     console.log({templates, key, item});
     let message = (templates as any)[key]?.(item)
     console.log({message});
-    
+
     await Promise.all(pathways.map(async (pathway) => {
         let emailCommand = new SendEmailCommand({
             Source: 'no-reply@hexhive.io',
@@ -25,7 +25,9 @@ export const notify = async (key: string, item: any, prisma: PrismaClient, organ
                 ToAddresses: [pathway.email]
             },
             Message: {
-                Body: message,
+                Body: {
+                    Text: message
+                },
                 Subject: {
                     Data: `New ${key} in HexHive`,
                 }
