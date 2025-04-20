@@ -20,7 +20,7 @@ export const notify = async (key: string, item: any, prisma: PrismaClient, organ
 
     await Promise.all(pathways.map(async (pathway) => {
         let emailCommand = new SendEmailCommand({
-            Source: 'no-reply@hexhive.io',
+            Source: 'HexHive <no-reply@hexhive.io>',
             Destination: {
                 ToAddresses: [pathway.email]
             },
